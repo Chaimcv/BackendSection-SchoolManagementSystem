@@ -5,6 +5,8 @@ const generator=require("generate-password");
 
 const upload=require("../middleware/uploads");
 
+const bcrypt = require("bcryptjs");
+
 
 
 const createParent=async(req,res)=>{
@@ -20,6 +22,7 @@ const createParent=async(req,res)=>{
 
     const{name,email,studentname,studentId,phonenumber,address,pincode,image}=req.body;
     console.log({name},"name");
+    const hashedPassword = await bcrypt.hash(password, 10);
     try{
        const newParent=new ParentModel({
         Name:name,
@@ -29,7 +32,7 @@ const createParent=async(req,res)=>{
         phonenumber,
         address,
         pincode,
-        password,
+        password:hashedPassword,
         image:req.upload
        });
        await newParent.save();
@@ -37,8 +40,8 @@ const createParent=async(req,res)=>{
         name:newParent.Name,
         student_name:newParent.Student_name,
         email:newParent.email,
-        password:password,
-        image
+        password:password
+        //image
        }
        console.log(resData);
        res.send({
