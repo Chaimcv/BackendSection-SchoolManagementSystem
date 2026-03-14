@@ -153,16 +153,16 @@ const ParentLogin=async(req,res)=>{
 
 
         //to be edited
-const isMatch = await bcrypt.compare(password, user.password);
+const fetchedParentData = await bcrypt.compare(password, fetchedParentData.password);
 
-if (!isMatch) {
+if (!fetchedParentData) {
  return res.send({
    message: "Invalid password"
  });
 }
 
 const token = jwt.sign(
-  { id: user._id },
+  { id: fetchedParentData._id },
   process.env.JWT_SECRET,
   { expiresIn: "1d" }
 );
@@ -170,7 +170,7 @@ const token = jwt.sign(
 res.send({
  message: "Login successful",
  token: token,
- user: user
+  id:fetchedParentData._id
 });
 
 } catch (error) {
