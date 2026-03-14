@@ -153,9 +153,9 @@ const ParentLogin=async(req,res)=>{
 
 
         //to be edited
-const fetchedParentData = await bcrypt.compare(password, fetchedParentData.password);
+const isMatch = await bcrypt.compare(password, fetchedParentData.password);
 
-if (!fetchedParentData) {
+if (!isMatch) {
  return res.send({
    message: "Invalid password"
  });
