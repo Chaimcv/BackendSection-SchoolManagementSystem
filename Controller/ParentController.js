@@ -208,9 +208,9 @@ function generateRandomToken(length = 32) {
 
 
 
-    } catch (error) {
+    // } catch (error) {
         
-    }
+    // }
 }
 
 module.exports={createParent,getParents,getParentById,updateParent,deleteParent,ParentLogin}
