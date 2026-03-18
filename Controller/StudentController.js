@@ -129,6 +129,19 @@ const deleteStudent=async(req,res)=>{
 }
 
 //login
+const jwt=require("jsonwebtoken");
+const StudentLogin=async(req,res)=>{
+    const{inputtedEmail,inputtedPassword}=req.body;
+    try{
+        if(!inputtedEmail||!inputtedPassword){
+           return res.send({
+                message:"Enter email and password"
+            })
+        }
+      const fetchStudentData=await StudentModel.findOne({email:inputtedEmail});
+    }catch(){
 
+    }
+}
 
 module.exports={createStudent,getStudentById,getStudents,deleteStudent,updateStudent}
