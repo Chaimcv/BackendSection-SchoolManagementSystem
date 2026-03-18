@@ -139,9 +139,36 @@ const StudentLogin=async(req,res)=>{
             })
         }
       const fetchStudentData=await StudentModel.findOne({email:inputtedEmail});
-    }catch(){
+      if(!fetchStudentData){
+        return res.send({
+            message:"no matching email found"
+        })
+      }
+      const isMatch=await compare(inputtedPassword,fetchStudentData.password);
+      if(!isMatch){
+        return res.send({
+            message:"Invalid Password"
+        })
+      }
+      const token = jwt.sign(
+        { id: fetchedStudentData._id },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+      
+      res.send({
+       message: "Login successful",
+       token: token,
+        id:fetchedStudentData._id,
+        name:fetchedStudentData.Name
+      });
+    } catch (error) {
 
-    }
+  res.send({
+   message: "Error in Student login"
+  });
+
+}
 }
 
-module.exports={createStudent,getStudentById,getStudents,deleteStudent,updateStudent}
+module.exports={createStudent,getStudentById,getStudents,deleteStudent,updateStudent,StudentLogin}

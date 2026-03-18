@@ -181,7 +181,6 @@ res.send({
 });
 
 }
-
 }
 
 module.exports={createParent,getParents,getParentById,updateParent,deleteParent,ParentLogin}
