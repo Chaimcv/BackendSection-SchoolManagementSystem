@@ -33,3 +33,4 @@ app.use("/announcements",AnnouncementRouter);
 app.listen(port,()=>{
     console.log(`Server running at port${port}`);
 })
+   
