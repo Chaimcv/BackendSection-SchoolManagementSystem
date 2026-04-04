@@ -1,5 +1,6 @@
 const AnnouncementModel=require("../Models/AnnouncementModel");
 const mongoose=require("mongoose");
+const cloudinary = require("../config/cloudinary");
 
 
 
