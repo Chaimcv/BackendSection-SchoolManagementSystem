@@ -1,9 +1,12 @@
 const mongoose=require("mongoose");
 const AnnouncementSchema=mongoose.Schema({
-    Image:{
+    ImageUrl:{
     type:String
     },
-    Text:{
+    Title:{
+        type:String
+    },
+    Description:{
         type:String
     }
 },

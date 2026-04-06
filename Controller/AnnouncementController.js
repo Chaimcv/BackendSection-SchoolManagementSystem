@@ -40,65 +40,65 @@ const cloudinary = require("../config/cloudinary");
 
 // check this for cloudinary section
 
-// exports.createAnnouncement = async (req, res) => {
-//   try {
-//     const { title, description } = req.body;
+const createAnnouncement = async (req, res) => {
+  try {
+    const { title, description } = req.body;
 
-//     let imageUrl = "";
+    let imageUrl = "";
 
-//     if (req.file) {
-//       const result = await cloudinary.uploader.upload_stream(
-//         { folder: "announcements" },
-//         async (error, result) => {
-//           if (error) return res.status(500).json({ error });
+    if (req.file) {
+      const result = await cloudinary.uploader.upload_stream(
+        { folder: "announcements" },
+        async (error, result) => {
+          if (error) return res.status(500).json({ error });
 
-//           const announcement = await Announcement.create({
-//             title,
-//             description,
-//             imageUrl: result.secure_url,
-//           });
+          const announcement = await Announcement.create({
+            title,
+            description,
+            imageUrl: result.secure_url,
+          });
 
-//           res.json(announcement);
-//         }
-//       );
+          res.json(announcement);
+        }
+      );
 
-//       result.end(req.file.buffer);
-//     } else {
-//       const announcement = await Announcement.create({
-//         title,
-//         description,
-//       });
-//       res.json(announcement);
-//     }
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-
-
-const createNotice=async(req,res)=>{
-    console.log("annoucements");
-    const {image,text}=req.body;
-    try {
-      const newNotice=new AnnouncementModel({
-        Image:image,
-        Text:text
+      result.end(req.file.buffer);
+    } else {
+      const announcement = await Announcement.create({
+        title,
+        description,
       });
-      await newNotice.save();
-      const resData={
-        image:newNotice.Image,
-        text:newNotice.Text
-      } 
-      console.log(resData);
-      res.send({
-        message:"notice added",
-        data:resData
-      }); 
-    } catch (error) {
-      console.log(error,"notice error");  
+      res.json(announcement);
     }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
+
+
+
+// const createNotice=async(req,res)=>{
+//     console.log("annoucements");
+//     const {image,text}=req.body;
+//     try {
+//       const newNotice=new AnnouncementModel({
+//         Image:image,
+//         Text:text
+//       });
+//       await newNotice.save();
+//       const resData={
+//         image:newNotice.Image,
+//         text:newNotice.Text
+//       } 
+//       console.log(resData);
+//       res.send({
+//         message:"notice added",
+//         data:resData
+//       }); 
+//     } catch (error) {
+//       console.log(error,"notice error");  
+//     }
+// };
 
 const getAllNotices=async(req,res)=>{
     try{
@@ -128,4 +128,4 @@ const deleteNotice=async(req,res)=>{
     message:"Notice deleted successfully"
    })
 }
-module.exports={createNotice,getAllNotices,deleteNotice}
+module.exports={createAnnouncement,getAllNotices,deleteNotice}
