@@ -55,7 +55,7 @@ const createAnnouncement = async (req, res) => {
           const announcement = await Announcement.create({
            Title:title,
             Description:description,
-            imageUrl: result.secure_url,
+            ImageUrl: result.secure_url,
           });
 
           res.json(announcement);
