@@ -65,7 +65,7 @@ const createAnnouncement = async (req, res) => {
       result.end(req.file.buffer);
     } else {
       const announcement = await Announcement.create({
-        title,
+        Title:title,
         description,
       });
       res.json(announcement);
