@@ -53,8 +53,8 @@ const createAnnouncement = async (req, res) => {
           if (error) return res.status(500).json({ error });
 
           const announcement = await Announcement.create({
-            title,
-            description,
+           Title:title,
+            Description:description,
             imageUrl: result.secure_url,
           });
 
