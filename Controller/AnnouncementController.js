@@ -66,7 +66,7 @@ const createAnnouncement = async (req, res) => {
     } else {
       const announcement = await Announcement.create({
         Title:title,
-        Description:description,
+        Description:description,  //need to be checked
       });
       res.json(announcement);
     }
