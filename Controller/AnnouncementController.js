@@ -38,8 +38,6 @@ const cloudinary = require("../config/cloudinary");
 
 
 
-// check this for cloudinary section
-
 const createAnnouncement = async (req, res) => {
   try {
     const { title, description } = req.body;
