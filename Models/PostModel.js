@@ -1,20 +1,20 @@
 const mongoose=require("mongoose");
 const PostSchema=mongoose.Schema({
-student: {
+Student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Students"
   },
-text: String,
+Text: String,
 
 ImageUrl: String,
 
-likes: [{
+lengthikes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Students"
   }],
 
-comments: [{
-    student: { type: mongoose.Schema.Types.ObjectId, ref: "Students" },
+Comments: [{
+    Student: { type: mongoose.Schema.Types.ObjectId, ref: "Students" },
     text: String,
     createdAt: { type: Date, default: Date.now }
   }]
