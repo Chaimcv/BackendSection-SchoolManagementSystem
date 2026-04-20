@@ -1,19 +1,24 @@
 const mongoose=require("mongoose");
 const PostSchema=mongoose.Schema({
-Title:{
-    type:String
-},
-Description:{
-    type:String
-},
-PostImageUrl:{
-    type:String
-},
-Comment:{
-    type:String
-},
-Like:{
-    type:
-}
-})
+student: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Students"
+  },
+text: String,
+
+ImageUrl: String,
+
+likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Students"
+  }],
+
+comments: [{
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "Students" },
+    text: String,
+    createdAt: { type: Date, default: Date.now }
+  }]
+
+}, { timestamps: true });
+
 module.exports=mongoose.model("Posts",PostSchema);
