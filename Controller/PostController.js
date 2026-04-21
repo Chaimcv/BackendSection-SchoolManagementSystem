@@ -20,7 +20,9 @@ exports.createPost = async (req, res) => {
       ImageUrl: image
     });
 
-    res.status(201).json(newPost);  //created successfully
+    res.status(201).json({message:"new post created in controller",
+      data:newPost});  //created successfully
+    
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -34,6 +36,10 @@ exports.getPosts = async (req, res) => {
       .sort({ createdAt: -1 }); //descending order,i.e latest post first
 
     res.json(posts);
+    res.send({
+      message:"All posts",
+      data:posts
+    })
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
