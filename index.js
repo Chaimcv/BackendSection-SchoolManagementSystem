@@ -15,7 +15,14 @@ const AnnouncementRouter = require("./Routes/AnnouncementRoute");
 const cors = require('cors');
 const PostRouter = require("./Routes/PostRoute");
 
-app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000
+// app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000
+
+app.use(cors({
+  origin: "https://frontendsection-schoolmanagementsystem.onrender.com",
+  credentials: true
+}));
+
+
 
 ///////  // "start": "nodemon index.js"      packagejson code changed for production
 
