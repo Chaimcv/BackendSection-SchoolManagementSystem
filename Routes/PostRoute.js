@@ -11,10 +11,10 @@ const {
 const auth = require("../middleware/auth");
 const upload = require("../middleware/uploads");
 
-// Basic Feed (Public)
+// Public Route
 PostRouter.get("/", getPosts);
 
-// Protected Interactions
+// Protected Routes
 PostRouter.post("/create", auth, upload.single("postImage"), createPost);
 PostRouter.put("/:id", auth, upload.single("postImage"), updatePost);
 PostRouter.delete("/:id", auth, deletePost);

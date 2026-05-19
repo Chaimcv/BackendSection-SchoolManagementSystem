@@ -17,7 +17,7 @@ const PostRouter = require("./Routes/PostRoute");
 
 app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000
 
-
+///////  // "start": "nodemon index.js"      packagejson code changed for production
 
 // Middleware
 app.use(express.json());
