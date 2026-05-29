@@ -24,7 +24,7 @@ app.use(cors({
 
 
 
-///////  // "start": "nodemon index.js"      packagejson code changed for production
+/////    // "start": "nodemon index.js"      packagejson code changed for production
 
 // Middleware
 app.use(express.json());
