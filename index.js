@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const port=8000;                                            //backend port set as 8000
 require('dotenv').config();
 const url=process.env.MONGO_URL;
-console.log(url,"url");
+//console.log(url,"url");
 const DbConnection=require("./config/ConnectDB");
 const TeacherRouter = require("./Routes/TeacherRoute");
 const StudentRouter =require("./Routes/StudentsRoute");
