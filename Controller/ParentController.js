@@ -22,7 +22,7 @@ const createParent=async(req,res)=>{
 
     const{name,email,studentname,studentId,phonenumber,address,pincode,image}=req.body;
     console.log({name},"name");
-    const hashedPassword = await bcrypt.hash(password, 10);
+    //const hashedPassword = await bcrypt.hash(password, 10);
     try{
        const newParent=new ParentModel({
         Name:name,
@@ -32,7 +32,7 @@ const createParent=async(req,res)=>{
         phonenumber,
         address,
         pincode,
-        password:hashedPassword,
+        password:password,                                        //password:hashedPassword,
         image:req.upload
        });
        await newParent.save();
