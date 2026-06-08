@@ -5,7 +5,7 @@ const generator=require("generate-password");
 
 const upload=require("../middleware/uploads");
 
-const bcrypt = require("bcryptjs");
+//const bcrypt = require("bcryptjs");
 
 
 
