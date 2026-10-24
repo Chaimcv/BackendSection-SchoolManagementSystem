@@ -29,6 +29,10 @@ const TeacherSchema=mongoose.Schema({
     standard:{
         type:Number
     },
+    division:{
+        type:String,
+        default:null
+    },
 },
     {
         Timestamp:true

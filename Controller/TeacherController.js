@@ -155,32 +155,33 @@ const TeacherLogin=async(req,res)=>{
         }
         if(fetchedTeacherData.Password===password)
         {
-            const token = generateRandomToken();
-             console.log(token);
+            const jwt = require("jsonwebtoken");
+            const token = jwt.sign(
+                { id: fetchedTeacherData._id, role: "teacher" },
+                process.env.JWT_SECRET || "myschoolsecretkey",
+                { expiresIn: "7d" }
+            );
+
             return res.send({
                 message:"Login Successful",
                 data:{
-                    email:fetchedTeacherData.email,
+                    email:fetchedTeacherData.Email || fetchedTeacherData.email,
                     name:fetchedTeacherData.name,
                     id:fetchedTeacherData._id,
                     token:token
-                    //image
                 }
             })
         }
 
-
-function generateRandomToken(length = 32) {
-  // Generate random bytes and convert to a hex string
-  return crypto.randomBytes(length).toString('hex');
-}
-// const token = generateRandomToken();
-// console.log(token);
-
-
+        return res.send({
+            message:"Invalid password"
+        });
 
     } catch (error) {
-        
+        console.error("Teacher login error:", error);
+        return res.status(500).send({
+            message:"Error in login"
+        });
     }
 }
 

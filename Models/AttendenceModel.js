@@ -3,7 +3,7 @@ const attendanceSchema = new mongoose.Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
+      ref: "Students",
       required: true,
     },
 
@@ -35,7 +35,7 @@ const attendanceSchema = new mongoose.Schema(
 
     markedBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Teacher",
+      ref: "Teachers",
       default: null,
     },
   },
