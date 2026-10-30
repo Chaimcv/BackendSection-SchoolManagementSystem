@@ -12,6 +12,7 @@ const StudentRouter = require("./Routes/StudentsRoute");
 const ParentRouter = require("./Routes/ParentRoute");
 const AnnouncementRouter = require("./Routes/AnnouncementRoute");
 const AttendenceRouter = require("./Routes/AttendenceRoute");
+const ExamRouter = require("./Routes/ExamRoute");
 //to establish connection btw frontend and backend
 const cors = require('cors');
 const PostRouter = require("./Routes/PostRoute");
@@ -38,6 +39,7 @@ app.use("/parent", ParentRouter);
 app.use("/announcements", AnnouncementRouter);
 app.use("/post", PostRouter);
 app.use("/api/attendance", AttendenceRouter);
+app.use("/api/exams", ExamRouter);
 
 //dAsnOnxqI61p9HFo
 app.listen(port, () => {
