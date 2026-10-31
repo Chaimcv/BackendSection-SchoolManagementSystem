@@ -1,6 +1,6 @@
 const ParentModel = require("../Models/ParentModel");
 const mongoose = require("mongoose");
-const crypto = require("crypto");
+// const crypto = require("crypto");
 const generator = require("generate-password");
 
 const upload = require("../middleware/uploads");
@@ -22,7 +22,8 @@ const createParent = async (req, res) => {
 
     const { name, email, studentname, studentId, phonenumber, address, pincode, image } = req.body;
     console.log({ name }, "name");
-    //const hashedPassword = await bcrypt.hash(password, 10);
+    // Password encryption logic (commented out)
+    // const hashedPassword = await bcrypt.hash(password, 10);
     try {
         const newParent = new ParentModel({
             Name: name,
@@ -32,7 +33,7 @@ const createParent = async (req, res) => {
             phonenumber,
             address,
             pincode,
-            password: password,                                        //password:hashedPassword,
+            password: password, // Plain text password saved (encryption commented out: password: hashedPassword),
             image: req.upload
         });
         await newParent.save();
@@ -153,6 +154,8 @@ const ParentLogin = async (req, res) => {
 
 
 
+        // Password verification (Plain text comparison; bcrypt comparison commented out)
+        // const isMatch = await bcrypt.compare(inputtedPassword, fetchedParentData.password);
         const isMatch = inputtedPassword === fetchedParentData.password;
 
         if (!isMatch) {
