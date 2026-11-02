@@ -95,29 +95,40 @@ const getParentById = async (req, res) => {
 
 //update
 const updateParent = async (req, res) => {
-    const { name, studentname, studentId, phonenumber, address, pincode } = req.body;
     try {
         const id = req.params.parentid;
         const isParentAvailable = await ParentModel.findById(id);
         if (!isParentAvailable) {
-            res.send({
+            return res.send({
                 message: "Parent not available"
-            })
+            });
+        }
+
+        const updateData = { ...req.body };
+        if (req.body.name !== undefined) updateData.Name = req.body.name;
+        if (req.body.Name !== undefined) updateData.Name = req.body.Name;
+        if (req.body.studentname !== undefined) updateData.Student_name = req.body.studentname;
+        if (req.body.Student_name !== undefined) updateData.Student_name = req.body.Student_name;
+        if (req.body.studentId !== undefined) updateData.student_id = req.body.studentId;
+        if (req.body.student_id !== undefined) updateData.student_id = req.body.student_id;
+        if (req.body.phonenumber !== undefined && req.body.phonenumber !== "") {
+            updateData.phonenumber = Number(req.body.phonenumber);
         }
 
         const updatedParent = await ParentModel.findByIdAndUpdate(
             id,
-            req.body,
-            { returnDocument: "after" }
+            updateData,
+            { new: true, returnDocument: "after" }
         );
-        res.send({
+        return res.send({
             message: "updated parent data",
             data: updatedParent
-        })
+        });
     } catch (error) {
-        res.send({
+        console.log("Error in updateParent:", error);
+        return res.send({
             message: "Not updated"
-        })
+        });
     }
 };
 
@@ -187,4 +198,3 @@ const ParentLogin = async (req, res) => {
 }
 
 module.exports = { createParent, getParents, getParentById, updateParent, deleteParent, ParentLogin }
-

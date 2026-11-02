@@ -30,8 +30,6 @@ const createTeacher = async (req, res) => {
             Password: password,
             city: city,
             pin: pin,
-            //    city:address.city,
-            //    pin:address.pin,
             phoneNumber: phonenumber,
             subject: subject,
             standard: standard,
@@ -42,15 +40,12 @@ const createTeacher = async (req, res) => {
             name: newTeacher.name,
             email: newTeacher.Email,
             password: newTeacher.Password
-
         }
         console.log(resData, "data");
         res.send({
             message: "Teacher created successfully",
             data: resData
-
         })
-
     } catch (er) {
         console.log("error", er);
     }
@@ -70,7 +65,6 @@ const getTeachers = async (req, res) => {
         })
         console.log(error, "error occ");
     }
-
 };
 
 //get particular data with id
@@ -80,7 +74,7 @@ const getTeacherById = async (req, res) => {
 
         const Teacher = await TeacherModel.findById(id);
         if (!Teacher) {
-            res.send({
+            return res.send({
                 message: "Teachers data not available"
             })
         }
@@ -96,41 +90,62 @@ const getTeacherById = async (req, res) => {
     }
 };
 
-
-
 //update
 const updateTeacher = async (req, res) => {
-    const { name, address, phonenumber, subject, standard } = req.body;
     try {
         const id = req.params.teacherid;
         const isTeacherAvailable = await TeacherModel.findById(id);
         if (!isTeacherAvailable) {
-            res.send({
+            return res.status(404).send({
                 message: "Teacher not available"
-            })
+            });
+        }
+
+        const updateData = { ...req.body };
+
+        // Normalize phone number to match schema field 'phoneNumber'
+        if (req.body.phoneNumber !== undefined && req.body.phoneNumber !== "") {
+            updateData.phoneNumber = Number(req.body.phoneNumber);
+        } else if (req.body.phonenumber !== undefined && req.body.phonenumber !== "") {
+            updateData.phoneNumber = Number(req.body.phonenumber);
+        } else if (req.body.phoneNumber === "" || req.body.phonenumber === "") {
+            updateData.phoneNumber = null;
+        }
+
+        // Normalize numerical fields
+        if (req.body.pin !== undefined) {
+            updateData.pin = req.body.pin !== "" && req.body.pin !== null ? Number(req.body.pin) : null;
+        }
+
+        if (req.body.standard !== undefined) {
+            updateData.standard = req.body.standard !== "" && req.body.standard !== null ? Number(req.body.standard) : null;
         }
 
         const updatedTeacher = await TeacherModel.findByIdAndUpdate(
             id,
-            req.body,
-            { returnDocument: "after" }                 //{new:true} replaced in new version
+            updateData,
+            { new: true, returnDocument: "after" }
         );
+
         res.send({
             message: "updated teacher data",
             data: updatedTeacher
-        })
+        });
     } catch (error) {
-        res.send({
-            message: "Not updated"
-        })
+        console.error("Error in updateTeacher:", error);
+        res.status(500).send({
+            message: "Not updated",
+            error: error.message
+        });
     }
 };
+
 //delete
 const deleteTeacher = async (req, res) => {
     const id = req.params.teacherid;
-    const TeacherAvailable = await TeacherModel.findById(id); //or  await TeacherModel.deleteOne({_id:id});
+    const TeacherAvailable = await TeacherModel.findById(id);
     if (!TeacherAvailable) {
-        res.send({
+        return res.send({
             message: "Not Teacher"
         })
     }
@@ -139,6 +154,7 @@ const deleteTeacher = async (req, res) => {
         message: "Teacher data deleted successfully"
     })
 }
+
 //Login
 const TeacherLogin = async (req, res) => {
     const { email, password } = req.body;
