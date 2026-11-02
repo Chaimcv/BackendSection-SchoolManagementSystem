@@ -17,16 +17,17 @@ const ExamRouter = require("./Routes/ExamRoute");
 const cors = require('cors');
 const PostRouter = require("./Routes/PostRoute");
 
-app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000-comment for production
+//app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000-comment for production
 
-// app.use(cors({
-//   origin: "https://frontendsection-schoolmanagementsystem.onrender.com",      //uncomment this for production
-//   credentials: true
-// }));
+app.use(cors({
+  origin: "https://frontendsection-schoolmanagementsystem.onrender.com",      //uncomment this for production
+  credentials: true
+}));
 
 
 
 /////    // "start": "nodemon index.js"      packagejson code changed for production
+// start:"node index.js" for development
 
 // Middleware
 app.use(express.json());
@@ -43,5 +44,5 @@ app.use("/api/exams", ExamRouter);
 
 //dAsnOnxqI61p9HFo
 app.listen(port, () => {
-    console.log(`Server running at port${port}`);
+  console.log(`Server running at port${port}`);
 })
