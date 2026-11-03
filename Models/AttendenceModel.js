@@ -1,3 +1,5 @@
+// Attendance Model commented out completely per CTO instruction
+/*
 const mongoose= require("mongoose");
 const attendanceSchema = new mongoose.Schema(
   {
@@ -51,3 +53,6 @@ attendanceSchema.index(
 );
 
 module.exports = mongoose.model("Attendance", attendanceSchema);
+*/
+
+module.exports = null;

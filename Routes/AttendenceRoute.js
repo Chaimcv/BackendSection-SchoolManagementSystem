@@ -1,3 +1,5 @@
+// Attendance routes commented out completely per CTO instruction
+/*
 const express = require("express");
 const {
   getMyAssignedClasses,
@@ -41,4 +43,9 @@ router.post("/bulk", saveAttendance);
 // GET: Generate a monthly attendance report.
 router.get("/report", getMonthlyReport);
 
+module.exports = router;
+*/
+
+const express = require("express");
+const router = express.Router();
 module.exports = router;
