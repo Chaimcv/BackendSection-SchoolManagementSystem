@@ -16,6 +16,8 @@ const ExamRouter = require("./Routes/ExamRoute");
 //to establish connection btw frontend and backend
 const cors = require('cors');
 const PostRouter = require("./Routes/PostRoute");
+const MessageRouter = require("./Routes/MessageRoute");
+const LeaveRouter = require("./Routes/LeaveRoute");
 
 //app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000-comment for production
 
@@ -41,6 +43,8 @@ app.use("/announcements", AnnouncementRouter);
 app.use("/post", PostRouter);
 // app.use("/api/attendance", AttendenceRouter);
 app.use("/api/exams", ExamRouter);
+app.use("/api/messages", MessageRouter);
+app.use("/api/leaves", LeaveRouter);
 
 //dAsnOnxqI61p9HFo
 app.listen(port, () => {
