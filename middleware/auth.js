@@ -1,18 +1,20 @@
 const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
-  const token = req.header("Authorization")?.replace("Bearer ", "");
+  const rawHeader = req.header("Authorization");
+  const token = rawHeader ? rawHeader.replace(/^Bearer\s+/i, "").trim() : null;
 
   if (!token) {
-    return res.status(401).json({ message: "No token, authorization denied" });
+    return res.status(401).json({ message: "No authentication token provided. Please log in as a student." });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.Student = decoded; // Contains id
+    const secret = process.env.JWT_SECRET || "myschoolsecretkey";
+    const decoded = jwt.verify(token, secret);
+    req.Student = decoded; // Contains student id
     next();
   } catch (err) {
-    res.status(401).json({ message: "Token is not valid" });
+    res.status(401).json({ message: "Session expired or invalid token. Please log in again." });
   }
 };
 

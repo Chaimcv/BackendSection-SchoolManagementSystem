@@ -5,17 +5,16 @@ const cloudinary = require("../config/cloudinary");
 // Create Post
 exports.createPost = async (req, res) => {
   try {
-    const { Text } = req.body;
+    const Text = req.body.Text || req.body.text || "";
     let imageUrl = "";
 
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);   //uploads the url from frontend to cloudinary
-      imageUrl = result.secure_url;   //result.secure_url saves the secure HTTPS link returned by Cloudinary.
+    if (req.file && req.file.path) {
+      imageUrl = req.file.path;   // multer-storage-cloudinary directly provides the Cloudinary URL
     }
 
     const newPost = await PostModel.create({
       student: req.Student.id,     //only loggedin student can create post
-      text: Text,
+      text: Text || "",
       imageUrl: imageUrl
     });
 
@@ -61,12 +60,11 @@ exports.updatePost = async (req, res) => {
       return res.status(403).json({ message: "Unauthorized to edit this post" });
     }  //It compares the ID of the post's creator with the ID of the logged-in user. If they don't match, it returns 403 Unauthorized.
 
-    const { Text } = req.body;
+    const Text = req.body.Text || req.body.text || "";
     if (Text) post.text = Text;  // If a new Text or a new image is provided, it updates those specific fields.
 
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      post.imageUrl = result.secure_url;
+    if (req.file && req.file.path) {
+      post.imageUrl = req.file.path;
     }
 
     await post.save();
