@@ -19,7 +19,7 @@ const PostRouter = require("./Routes/PostRoute");
 const MessageRouter = require("./Routes/MessageRoute");
 const LeaveRouter = require("./Routes/LeaveRoute");
 
-//app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000-comment for production
+// app.use(cors({ origin: ['http://localhost:3000'] }));       //frontend runs in port 3000-comment for production
 
 app.use(cors({
   origin: "https://frontendsection-schoolmanagementsystem.onrender.com",      //uncomment this for production
