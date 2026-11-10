@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   createExamTimetable,
+  getAllExams,
   getTeacherExams,
   getClassExams,
   updateExamTimetable,
@@ -9,6 +10,8 @@ const {
 } = require("../Controller/ExamController");
 
 // Mount REST routes
+router.get("/all", getAllExams);
+router.get("/", getAllExams);
 router.post("/", createExamTimetable);
 router.get("/teacher/:teacherId", getTeacherExams);
 router.get("/class/:standard/:division", getClassExams);

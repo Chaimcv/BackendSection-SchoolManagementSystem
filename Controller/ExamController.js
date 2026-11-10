@@ -271,3 +271,25 @@ exports.deleteExamTimetable = async (req, res) => {
   }
 };
 
+// 6. Fetch all exam timetables across all classes and teachers (Admin Master View)
+exports.getAllExams = async (req, res) => {
+  try {
+    const timetables = await ExamTimetable.find()
+      .sort({ createdAt: -1 })
+      .populate("createdBy", "name Email subject standard division");
+
+    return res.status(200).json({
+      success: true,
+      count: timetables.length,
+      data: timetables,
+    });
+  } catch (error) {
+    console.error("Error fetching all exam timetables:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to fetch all exam timetables.",
+    });
+  }
+};
+
+
